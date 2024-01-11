@@ -1,0 +1,5 @@
+    bottomRight = dataset.transform * (dataset.width, dataset.height)
+    topLeft = dataset.transform * (0, 0)
+    print(dataset.crs)
+    print(topLeft)
+    print(bottomRight)
