@@ -20,6 +20,8 @@ with rasterio.open('./data/populationDensity.tif') as dataset:
     pixel_height_degrees = abs(pixel_height_meters * 360 / (2 * math.pi * R * math.cos(math.radians(latitude))))
     print(pixel_height_degrees)
 
+    print(dataset.crs)
+
     southWestPos = [85.96019432861101, 40.13997503559076]
     
     # Calculate the dimensions of the dataset
