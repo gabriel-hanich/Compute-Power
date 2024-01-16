@@ -2,12 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class ValueMap:
-    def __init__(self, gridSize, southWestPos, cellSize, noDataVal):
+    def __init__(self, gridSize, southWestPos, cellSize, noDataVal, units):
         self.gridSize = gridSize
         self.southWestPos = southWestPos
         self.cellSize = cellSize
         self.noDataVal = noDataVal
-        
+        self.units = units
+
         self.gridData = np.empty((gridSize[0], gridSize[1]))
     
     def setGridData(self, gridData):
