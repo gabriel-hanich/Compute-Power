@@ -3,33 +3,58 @@ import matplotlib.pyplot as plt
 
 class ValueMap:
     def __init__(self, gridSize, southWestPos, cellSize, noDataVal, units):
+        # Initialize data
         self.gridSize = gridSize
         self.southWestPos = southWestPos
         self.cellSize = cellSize
         self.noDataVal = noDataVal
         self.units = units
 
+        # Create an empty NP array that will store the GRID data
         self.gridData = np.empty((gridSize[0], gridSize[1]))
     
     def setGridData(self, gridData):
+        # Load the grid data
         self.gridData = gridData
     
     def determineValue(self, lattitude, longitude):
+        # Determine the value at a specific latitude and longitude 
+        xIndex, yIndex = self.getCoord(lattitude, longitude)
+
+        return self.gridData[yIndex][xIndex]
+    
+    def getCoord(self, lattitude, longitude):
+        # Convert a latitude and longitude into array indexes
         yIndex = self.gridData.shape[0] -  int(abs(lattitude - self.southWestPos[0]) / self.cellSize)
         xIndex = int(abs(longitude - self.southWestPos[1]) / self.cellSize)
         if yIndex > 0:
             yIndex = yIndex - 1
         if xIndex > 0:
             xIndex = xIndex - 1
-
-        return self.gridData[yIndex][xIndex]
+        return [xIndex, yIndex]
     
-    def plot(self, colormap='jet'):
+    def getLatLon(self, xIndex, yIndex):
+        # Convert a specific array index into a lat/lon coordinate
+        lat, lon = -1,-1
+
+        lat = self.southWestPos[0] - ((self.gridSize[0] - yIndex) * self.cellSize)
+        lon = self.southWestPos[1] + (xIndex * self.cellSize)
+
+        return [lat,lon]
+
+    def plot(self, colormap='jet', path="", title="", dpi=300):
+        # Plot the data as a heatmap
+        plt.clf()
         plt.imshow(self.gridData, cmap=colormap, interpolation='nearest')
         plt.colorbar()
-        plt.show()
+        plt.title(title)
+        if path=="":
+            plt.show()
+        else:
+            plt.savefig(path, dpi=dpi)
 
     def writeToFile(self, filePath):
+        # Write the grid data to a file
         with open(filePath, "w+", encoding='utf-8') as outputFile:
             header = [
                 f"nrows {self.gridData.shape[0]}",
