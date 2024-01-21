@@ -1,4 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
+import numpy as np
+
 def readGridDataFromFile(path):
     # Read data from file
     with open(path, "r", encoding="utf-8") as gridFile:
@@ -83,3 +85,12 @@ def getDateList(startDate, endDate, delta=1):
         dateList.append(currentDate)
         currentDate += timedelta(days=delta)
     return dateList
+
+def getProfile(keys, prompt="Select a profile"):
+    if len(keys) == 1:
+        return list(keys)[0]
+
+    print(prompt)
+    for keyIndex, key in enumerate(keys):
+        print(f"{keyIndex+1}. {key}")
+    return list(keys)[getIntInput(len(keys), 0, "")-1]

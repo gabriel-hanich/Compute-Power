@@ -19,5 +19,14 @@
         "dataTypes": [
             "pressure"
         ]
+    },
+    "temperature": {
+        "startDate": "01/01/2023",
+        "endDate": "31/12/2023",
+        "frequency": 1,
+        "overRideFiles": false,
+        "dataTypes": [
+            "temperature"
+        ]
     }
 }

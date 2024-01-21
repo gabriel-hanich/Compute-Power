@@ -1,14 +1,15 @@
 import requests
 import unlzw3 as unlzw
 from datetime import datetime
-from util import getBOMURL, getIntInput, getDateList
+from func.util import getBOMURL, getIntInput, getDateList, getProfile
 import json
 import time
 import os.path
 
+# Automatically download BOM climate data 
+
 k_profile = ""
 k_headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"}
-startTime = time.time()
 
 # Load config data
 with open("./config/download.json") as configFile:
@@ -17,14 +18,13 @@ with open("./config/download.json") as configFile:
 # From the config data, load the appropritate profile
 # If the profile is not specified, ask the user
 if k_profile == "":
-    print("Which profile would you like to use?")
-    for index, key in enumerate(configData.keys()):
-        print(f"{index+1}. {key}")
-    k_profile = list(configData.keys())[getIntInput(len(configData.keys()), 1, )-1]
+    k_profile = getProfile(configData.keys())
 
 k_setup = configData[k_profile]
 
 print(f"Selected {k_profile} Profile")
+
+startTime = time.time()
 
 k_setup["startDate"] = datetime.strptime(k_setup["startDate"], "%d/%m/%Y")
 k_setup["endDate"] = datetime.strptime(k_setup["endDate"], "%d/%m/%Y")
