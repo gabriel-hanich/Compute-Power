@@ -161,3 +161,4 @@ cython_debug/
 main/data/density/density.grid
 test/data/density/density.grid
 
+*.grid

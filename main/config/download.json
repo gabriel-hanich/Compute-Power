@@ -1,23 +1,26 @@
 {
-    "main": {
+    "2023Total": {
         "startDate": "01/01/2023",
         "endDate": "31/12/2023",
         "frequency": 1,
         "overRideFiles": false,
         "dataTypes": [
             "irradiance",
+            "temperature",
             "pressure",
-            "rainfall",
-            "temperature"
+            "rainfall"
         ]
     },
-    "test": {
-        "startDate": "06/02/2023",
-        "endDate": "08/02/2023",
+    "2020sTotal":{
+        "startDate": "01/01/2020",
+        "endDate": "31/12/2023",
         "frequency": 1,
-        "overRideFiles": true,
+        "overRideFiles": false,
         "dataTypes": [
-            "pressure"
+            "irradiance",
+            "temperature",
+            "pressure",
+            "rainfall"
         ]
     },
     "temperature": {
