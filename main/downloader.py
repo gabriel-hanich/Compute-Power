@@ -26,6 +26,7 @@ print(f"Selected {k_profile} Profile")
 
 startTime = time.time()
 
+# Convert start and end dates into a list of included dates 
 k_setup["startDate"] = datetime.strptime(k_setup["startDate"], "%d/%m/%Y")
 k_setup["endDate"] = datetime.strptime(k_setup["endDate"], "%d/%m/%Y")
 k_datesList = getDateList(k_setup["startDate"], k_setup["endDate"], k_setup["frequency"])
@@ -42,9 +43,12 @@ for dataTypeIndex, dataType in enumerate(k_setup["dataTypes"]):
             res = requests.get(url, headers=k_headers, stream=True)
             data = unlzw.unlzw(res.content).decode("utf-8") # Unzip the file
             splitData = data.split("\n")
+
+            # Write the file
             with open(filePath, "w", encoding='utf-8') as outputFile:
                 outputFile.writelines([string.strip() + '\n' for string in splitData])
-            fileCount += 1
+            fileCount += 1 # Record number of files created
+
         print(f"{dateIndex+1}/{len(k_datesList)} Loaded for {dataTypeIndex+1}/{len(k_setup['dataTypes'])}", end="\r", flush=True)
 
 

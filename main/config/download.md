@@ -6,6 +6,19 @@ This file describes the nature, type and duration of the data downloaded by `BOM
 Used in `downloader.py` and `mean.py`
 
 > Note that all dates are to be in the format DD/MM/YYYY
+## File Structure
+```
+"profileName": {
+        "startDate": date,
+        "endDate": date,
+        "frequency": integer,
+        "overRideFiles": boolean,
+        "dataTypes": [
+            dataType(str),
+            dataType(str)
+        ]
+    },
+```
 
 ## Variables
 ### startDate

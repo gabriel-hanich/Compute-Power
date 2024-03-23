@@ -8,17 +8,23 @@ The file is structured to include multiple different profiles, as shown below. T
 
 ```
 {
-    "profileName": [
-        [Lat1, Lon1],
-        [Lat2, Lon2],
-        [Lat3, Lon3],
-        [Lat4, Lon4]
-    ]    
+    "profileName": {
+        "isbounding": boolean
+        "coords" : [
+            [Lat1, Lon1],
+            [Lat2, Lon2],
+            [Lat3, Lon3],
+            [Lat4, Lon4]
+        ]
+    }
 }
 ```
 
 ### profileName
 This can be replaced by any `string`, and is the name of the profile. 
+
+### isbounding
+If set to true, the written value will be an average of all the cells within a boundin box defined by `coords`. If set to false, the output will be the raw value at the first coordinate specified in `coords`
 
 ### Lat
 The latitude of a point. It must be a `float`

@@ -31,5 +31,14 @@
         "dataTypes": [
             "temperature"
         ]
+    },
+    "test": {
+        "startDate": "01/01/2023",
+        "endDate": "30/01/2023",
+        "frequency": 1,
+        "overRideFiles": false,
+        "dataTypes": [
+            "temperature"
+        ]
     }
 }
