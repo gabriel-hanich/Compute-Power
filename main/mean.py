@@ -5,6 +5,8 @@ from datetime import datetime
 import numpy as np
 import pandas as pd 
 
+# Determine average values for the downloaded .grid files
+
 # Load Profiles
 meanProfile = ""
 dateProfile = ""
@@ -33,6 +35,7 @@ dateData = dateData[dateProfile]
 dateData["startDate"] = datetime.strptime(dateData["startDate"], "%d/%m/%Y")
 dateData["endDate"] = datetime.strptime(dateData["endDate"], "%d/%m/%Y")
 
+
 dateList = getDateList(dateData["startDate"], dateData["endDate"], dateData["frequency"])
 
 # Load density data
@@ -56,9 +59,15 @@ for coordIndex, coord in enumerate(boundingCoords):
 
 samplePoints = densityData.getInternalCoords(boundingIndexes)
 
+dataTypes = dateData["dataTypes"].copy()
+doGrid = False
+if "grid" in dataTypes:
+    doGrid = True
+    dataTypes.remove("grid")
+
 # Create first row of .csv file
 outputData = [[]]
-for dataType in dateData["dataTypes"].copy():
+for dataType in dataTypes:
     outputData[0].append(f"{dataType} ({units[dataType]})")
 outputData[0].insert(0, "Date")
 
@@ -71,7 +80,7 @@ if meanData["isBounding"]: # If generating a population-weighted mean
     # Determine mean values for every day
     for dateIndex, date in enumerate(dateList):
         outputData.append([date.strftime('%d/%m/%Y')])
-        for dataIndex, dataType in enumerate(dateData["dataTypes"]):
+        for dataIndex, dataType in enumerate(dataTypes):
             # Load the climate data file
             climateFileData = readGridDataFromFile(f"./data/{dataType}/{date.strftime('%d.%m.%Y')}.grid")
             climateData = ValueMap(
@@ -103,7 +112,7 @@ else:  # If the user only cares about a value at a single location
     print(f"Looking at single point, {lat}, {lon}")
     for dateIndex, date in enumerate(dateList):
         outputData.append([date.strftime('%d/%m/%Y')])
-        for dataIndex, dataType in enumerate(dateData["dataTypes"]):
+        for dataIndex, dataType in enumerate(dataTypes):
             # Load the climate data file
             climateFileData = readGridDataFromFile(f"./data/{dataType}/{date.strftime('%d.%m.%Y')}.grid")
             climateData = ValueMap(
@@ -116,11 +125,60 @@ else:  # If the user only cares about a value at a single location
             climateData.setGridData(climateFileData["mapData"])
             outputData[-1].append(str(climateData.determineValue(lat, lon)))
 
-            print(f"Loaded {str(round((len(dateData['dataTypes']) * dateIndex + dataIndex+1)/(len(dateList)*len(dateData['dataTypes'])), 4)*100)[0:4]}%", end="\r", flush=True)
 
-# Output data to .csv file
-with open(f"./data/processed/{dateProfile}.csv", "w+", encoding="utf-8") as outputFile:
+# Output climate data to .csv file
+            print(f"Loaded {str(round((len(dateData['dataTypes']) * dateIndex + dataIndex+1)/(len(dateList)*len(dateData['dataTypes'])), 5)*100)[0:5]}%", end="\r", flush=True)
+with open(f"./data/processed/climate/{dateProfile}.csv", "w+", encoding="utf-8") as outputFile:
     for line in outputData:
         outputFile.write(",".join(line)+"\n")
 
-print(f"Written {len(outputData)} lines to data/processed/{dateProfile}.csv")
+print(f"Written {len(outputData)} lines to data/processed/climate/{dateProfile}.csv")
+
+# If the User includes grid data 
+if doGrid:
+    gridLabels = ["date"]
+    gridDataArr = {}
+
+    # Get an inclusive list containing every year in the studied period
+    yearList = list(year+dateData["startDate"].year for year in range(dateData["endDate"].year - dateData["startDate"].year+1))
+
+    for yearIndex, year in enumerate(yearList):
+        # Load Electricity Grid data for the given year
+        with open(f"./data/grid/generation/{year}.json", "r") as yearFile:
+            yearData = json.load(yearFile)["data"]
+        
+        for rowIndex, row in enumerate(yearData):
+            # Make a list of all the data labels
+            if f"{row['id']} ({row['units']})" not in gridLabels:
+                gridLabels.append(f"{row['id']} ({row['units']})")
+            
+            # Add the years worth of data points into correct column
+            try:
+                gridDataArr[f"{row['id']} ({row['units']})"] = gridDataArr[f"{row['id']} ({row['units']})"] + row["history"]["data"]
+            except KeyError:
+                gridDataArr[f"{row['id']} ({row['units']})"] = row["history"]["data"]
+    
+    missingList = []
+    with open(f"./data/processed/grid/{dateProfile}.csv", "w") as outputFile:
+        # The first row of the CSV is the grid labels
+        rowCount = 0
+        outputFile.write(",".join(gridLabels) + "\n")
+        for dateIndex, date in enumerate(dateList):
+            # The first column of every row is the date
+            row = [date.strftime("%d/%m/%Y")]
+            for label in gridLabels:
+                if label != "date":
+                    try:
+                        row.append(str(gridDataArr[label][dateIndex]))
+                    except IndexError:
+                        # This can occur if the tracked variables change across the different years
+                        if f"{date.year} {label}" not in missingList:
+                            print(f"   Not enough data points for {date.year} {label}")
+                            missingList.append(f"{date.year} {label}")
+                        row.append("0")
+            outputFile.write(",".join(row) + "\n")
+            rowCount += 1
+    print(f"Written {rowCount} lines to data/processed/grid/generation/{dateProfile}.csv")
+    
+
+

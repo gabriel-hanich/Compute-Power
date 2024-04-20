@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 import numpy as np
 
 def readGridDataFromFile(path):
@@ -76,7 +76,6 @@ def getIntInput(maxVal, minVal=0, prompt=""):
         except ValueError:
             print(f"This is an invalid input, the input must be an integer between {minVal} and {maxVal}")
 
-
 def getDateList(startDate, endDate, delta=1):
     # Get a list of dates between 2 dates (inclusive)
     dateList = []
@@ -94,3 +93,16 @@ def getProfile(keys, prompt="Select a profile"):
     for keyIndex, key in enumerate(keys):
         print(f"{keyIndex+1}. {key}")
     return list(keys)[getIntInput(len(keys), 0, "")-1]
+
+
+def getDateInput(minVal, maxDate, prompt="Select a date"):
+    while True:
+        potentialDate = input(prompt + "\n")
+        try:
+            userDate = datetime.strptime(potentialDate, "%d/%m/%Y")
+            if userDate >= minVal and userDate <= maxDate:
+                return userDate
+            else:
+                print("Date is not within range")
+        except ValueError:
+            print("Invalid Date")

@@ -37,3 +37,6 @@ with rasterio.open('./data/populationDensity.tif') as dataset:
 # densityData.writeToFile("./data/density.grid")
 
 densityData.plot()
+
+-34.09425620948342, 150.8947018434003
+-34.85727658279411, 151.41380581233346

@@ -26,6 +26,11 @@ print(f"Selected {k_profile} Profile")
 
 startTime = time.time()
 
+k_doGrid = False
+if "grid" in k_setup["dataTypes"]:
+    k_doGrid = True
+    k_setup["dataTypes"].remove("grid")
+
 # Convert start and end dates into a list of included dates 
 k_setup["startDate"] = datetime.strptime(k_setup["startDate"], "%d/%m/%Y")
 k_setup["endDate"] = datetime.strptime(k_setup["endDate"], "%d/%m/%Y")
@@ -33,7 +38,8 @@ k_datesList = getDateList(k_setup["startDate"], k_setup["endDate"], k_setup["fre
 
 fileCount = 0
 
-
+# Download BOM data
+print("Downloading BOM Data")
 for dataTypeIndex, dataType in enumerate(k_setup["dataTypes"]):
     for dateIndex, date in enumerate(k_datesList):
         filePath = f"data/{dataType}/{date.strftime('%d.%m.%Y')}.grid" # The path at which the file will be saved
@@ -50,6 +56,26 @@ for dataTypeIndex, dataType in enumerate(k_setup["dataTypes"]):
             fileCount += 1 # Record number of files created
 
         print(f"{dateIndex+1}/{len(k_datesList)} Loaded for {dataTypeIndex+1}/{len(k_setup['dataTypes'])}", end="\r", flush=True)
+
+print("Downloaded Climate Data Succesfully\nBeginning NEM data Download")
+
+# Download NEM Data
+if k_doGrid:
+    # Create an inclusive list of all the years between the start date and end date
+    yearList = list(year+k_setup["startDate"].year for year in range(k_setup["endDate"] .year - k_setup["startDate"].year+1))
+    for year in yearList:
+        filePath = f"./data/grid/generation/{year}.json"
+
+        # Only download the data if the file doesn't exist OR the user has chosen to override existing files
+        if not ((os.path.isfile(filePath)) and (not k_setup["overRideFiles"])):
+            url = f"https://data.opennem.org.au/v3/stats/au/{k_setup['energyMarket']}/{k_setup['energyReigon']}/energy/{year}.json"
+            
+            res = requests.get(url, headers=k_headers)
+            yearData = json.loads(res.content.decode('utf-8'))
+
+            with open(filePath, "w", encoding="utf-8") as yearFile:
+                json.dump(yearData, yearFile, ensure_ascii=False, indent=4)
+                fileCount += 1
 
 
 print(f"Finished downloading {fileCount} files in {round(time.time() -startTime, 2)} seconds")

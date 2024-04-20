@@ -1,44 +1,46 @@
 {
-    "2023Total": {
-        "startDate": "01/01/2023",
-        "endDate": "31/12/2023",
+    "SRRPeriod":{
+        "startDate": "01/01/2019",
+        "endDate": "31/03/2024",
+        "energyMarket": "NEM",
+        "energyReigon": "NSW1",
         "frequency": 1,
         "overRideFiles": false,
+        "windFile": "windData.csv",
         "dataTypes": [
             "irradiance",
             "temperature",
             "pressure",
-            "rainfall"
+            "rainfall",
+            "grid"
         ]
     },
-    "2020sTotal":{
-        "startDate": "01/01/2020",
-        "endDate": "31/12/2023",
+    "shortTest": {
+        "startDate": "01/01/2023",
+        "endDate": "31/01/2023",
+        "energyMarket": "NEM",
+        "energyReigon": "NSW1",
         "frequency": 1,
         "overRideFiles": false,
+        "windFile": "windData.csv",
         "dataTypes": [
             "irradiance",
             "temperature",
             "pressure",
-            "rainfall"
+            "rainfall",
+            "grid"
         ]
     },
-    "temperature": {
-        "startDate": "01/01/2023",
-        "endDate": "31/12/2023",
+    "energy": {
+        "startDate": "01/01/2019",
+        "endDate": "31/03/2024",
+        "energyMarket": "NEM",
+        "energyReigon": "NSW1",
         "frequency": 1,
         "overRideFiles": false,
+        "windFile": "windData.csv",
         "dataTypes": [
-            "temperature"
-        ]
-    },
-    "test": {
-        "startDate": "01/01/2023",
-        "endDate": "30/01/2023",
-        "frequency": 1,
-        "overRideFiles": false,
-        "dataTypes": [
-            "temperature"
+            "grid"
         ]
     }
 }
