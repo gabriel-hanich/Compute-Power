@@ -9,6 +9,8 @@ class datePoint:
         self.windangle = windangle
         self.energyData = energyData
 
+        self.dayoftheyear = date.timetuple().tm_yday
+
     def getDateStr(self):
         return self.date.strftime("%d/%m/%Y")
     

@@ -3,10 +3,10 @@ from func.util import getProfile, getDateList, getDateInput, readGridDataFromFil
 from datetime import datetime
 import json
 import matplotlib.pyplot as plt
-
 from func.valueMaps import ValueMap
+import time
 
-profileName = ""
+profileName = "SRRPeriod"
 
 with open("./config/download.json", "r", encoding="utf-8") as dataProfileFile:
     configData = json.load(dataProfileFile)
@@ -22,6 +22,7 @@ for dateIndex, date in enumerate(dateList):
 
 dataTypeCount = len(configData["dataTypes"])
 
+startTime = time.time()
 # Load data about the energy grid
 print("Loading Grid Data")
 if "grid" in configData["dataTypes"]:
@@ -30,6 +31,7 @@ if "grid" in configData["dataTypes"]:
         gridLines = gridDataFile.readlines()
         gridLabels = gridLines[0].split(",")[1:]
         
+
         for date in dateList:
             for rowIndex, row in enumerate(gridLines):
                 if row.split(",")[0] == date.getDateStr():
@@ -55,26 +57,42 @@ if dataTypeCount > 0:
                     dataIndexes[dataType] = labelIndex
                     break
         
+        # Validate that start and end dates are the same
+        if not (climateData[1].split(",")[0] == dateList[0].getDateStr() and climateData[-1].split(",")[0] == dateList[-1].getDateStr()):
+            print(f"FATAL ERROR\nThe Climate data and studied period do not have the same date range")
+            print(f"Study Period date Range: {dateList[0].getDateStr()} - {dateList[-1].getDateStr()}")
+            print(f"Climate Data date Range: {climateData[1].split(',')[0]} - {climateData[-1].split(',')[0]}")
+            exit()
+
         # Load data
-        for date in dateList:
-            for rowIndex, row in enumerate(climateData):
-                if row.split(",")[0] == date.getDateStr():
-                    for dataType in configData["dataTypes"]:
-                        if dataType != "grid":
-                            exec(f"date.{dataType} = float(row.split(',')[dataIndexes[dataType]])")
-                    climateData.remove(row)
+        climateData = climateData[1:] # Remove labels
+        for rowIndex, row in enumerate(climateData):
+            if row.split(",")[0] == dateList[rowIndex].getDateStr():
+                for dataType in configData["dataTypes"]:
+                    if dataType != "grid":
+                        exec(f"dateList[{rowIndex}].{dataType} = float(row.split(',')[dataIndexes[dataType]])")
 
 # Load Wind Data
 print("Loading Wind Data")
 if configData["windFile"] != "":
     with open(f"./data/processed/wind/{configData['windFile']}", "r") as windFile:
         windData = windFile.readlines()
-        for date in dateList:
-            for rowIndex, row in enumerate(windData):
-                row = row.split(",")
-                if row[0] == date.getDateStr():
-                    date.windspeed = float(row[1])
-                    date.windangle = float(row[4])
+
+        # Validate that start and end dates are the same
+        if not(windData[1].split(",")[0] == dateList[0].getDateStr() and windData[-1].split(",")[0] == dateList[-1].getDateStr()):
+            print(f"FATAL ERROR\nThe Wind data and studied period do not have the same date range")
+            print(f"Study Period date Range: {dateList[0].getDateStr()} - {dateList[-1].getDateStr()}")
+            print(f"Wind Data date Range: {windData[1].split(',')[0]} - {windData[-1].split(',')[0]}")
+            exit()
+
+        windData = windData[1:]
+        for rowIndex, row in enumerate(windData):
+            row = row.split(",")
+            if row[0] == dateList[rowIndex].getDateStr():
+                dateList[rowIndex].windspeed = float(row[1])
+                dateList[rowIndex].windangle = float(row[4])
+
+print(f"Loaded in {round(time.time() - startTime,3)} seconds")
 
 # Now for the CLI
 mainInstruction = ""
@@ -136,6 +154,7 @@ while True:
         options = ["windspeed", "windangle"]
         options = options + configData["dataTypes"]
         options.append("date")
+        options.append("dayoftheyear")
         xAxis = getProfile(options, "What do you want to be the X-AXIS")
 
         # If the User wants the X-axis to be an energy grid value
@@ -145,7 +164,7 @@ while True:
             xAxis = getProfile(options, "Which energy value do you want to be the X-AXIS")
             doXAxisEnergyData = True
 
-        options = ["windspeed", "windangle"] + configData["dataTypes"]
+        options = ["windspeed", "windangle"] + configData["dataTypes"] + ["dayoftheyear"]
         yAxis = getProfile(options, "What do you want to be the Y-AXIS")
 
         # If the User wants the Y-axis to be an energy grid value
