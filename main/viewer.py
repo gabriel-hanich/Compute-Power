@@ -100,6 +100,9 @@ subInstruction = ""
 selectedDate = datetime.strptime("01/01/1970", "%d/%m/%Y")
 wipelevel = 0
 
+# Niche settings 
+doYearColor = True # Change the color of the points according to their year
+
 while True:
     options = ["View specific Date", "Graph Something", "Exit"]
     if mainInstruction == "":
@@ -176,7 +179,9 @@ while True:
 
         xVals = []
         yVals = []
+        pointColors = []
         for date in dateList:
+            pointColors.append(dateList[0].date.year - date.date.year)
             if doXAxisEnergyData:
                 xVals.append(date.energyData[xAxis])
             else:
@@ -193,7 +198,10 @@ while True:
         if xAxis == "date":
             plt.plot(xVals, yVals)
         else:
-            plt.scatter(xVals, yVals) 
+            if doYearColor:
+                plt.scatter(xVals, yVals, c=pointColors, cmap='viridis')
+            else:
+                plt.scatter(xVals, yVals) 
         plt.show()
         plt.clf() 
 
