@@ -1,12 +1,13 @@
+import os
 from func.datePoint import datePoint
-from func.util import getProfile, getDateList, getDateInput, readGridDataFromFile
+from func.util import getIntInput, getProfile, getDateList, getDateInput, readGridDataFromFile
 from datetime import datetime
 import json
 import matplotlib.pyplot as plt
 from func.valueMaps import ValueMap
 import time
 
-profileName = "SRRPeriod"
+profileName = ""
 
 with open("./config/download.json", "r", encoding="utf-8") as dataProfileFile:
     configData = json.load(dataProfileFile)
@@ -104,7 +105,7 @@ wipelevel = 0
 doYearColor = True # Change the color of the points according to their year
 
 while True:
-    options = ["View specific Date", "Graph Something", "Exit"]
+    options = ["View specific Date", "Graph Something", "Produce Map Animation", "Exit"]
     if mainInstruction == "":
         mainInstruction = getProfile(options, "(Root) Select an Action")
 
@@ -207,6 +208,60 @@ while True:
 
         wipelevel = 3
     
+    if mainInstruction == "Produce Map Animation":
+        wipelevel = 3
+        startDate = getDateInput(dateList[0].date, dateList[-1].date, f"What date should the starting frame have? ({dateList[0].getDateStr()}-{dateList[-1].getDateStr()})")
+        endDate = getDateInput(startDate, dateList[-1].date, f"What date should the ending frame have? {startDate.strftime('%d/%m/%Y')}-{dateList[-1].getDateStr()}")
+
+        mapTypes = configData["dataTypes"].copy()
+        mapTypes.remove("grid")
+        mapType = getProfile(mapTypes, "Which climate variable do you want to map?")
+
+        doSetRange = input("Do you want to use a fixed max and min value? (y/N)\n")
+        graphRange = []
+        if doSetRange == "y":
+            graphRange.append(getIntInput(maxVal=10**10, minVal=-10**10, prompt="What is the Minimum Value\n"))
+            graphRange.append(getIntInput(maxVal=10**10, minVal=graphRange[0], prompt="What is the Maximum Value\n"))
+
+        animationName = input("What should the animation be called?\n")
+
+        try:
+            os.mkdir(f"./animations/{animationName}")
+        except FileExistsError:
+            doAction = input("Warning, Animation already exists, do you want to continue (y/N)\n")
+            if doAction == "y":
+                pass
+            else:
+                exit()
+
+        frameDatelist = getDateList(startDate, endDate)
+        for frameIndex, frameDate in enumerate(frameDatelist):
+            climateMapData = readGridDataFromFile(f"./data/{mapType}/{frameDate.strftime('%d.%m.%Y')}.grid")
+            
+            climateData = ValueMap(
+                climateMapData["gridSize"], 
+                climateMapData["southWestPos"],
+                climateMapData["cellSize"], 
+                climateMapData["noDataVal"], 
+                []
+            )
+            climateData.setGridData(climateMapData["mapData"])
+            
+            climateData.plot(title=f"{frameDate.strftime('%d/%m/%Y')}", path=f"./animations/{animationName}/{frameIndex}.png", range=graphRange)
+
+            print(f"Generated Frame {frameIndex}/{len(frameDatelist)}", end="\r", flush=True)
+        print("Done, You can use the following command to render the image")
+        print(f"ffmpeg -r 5 -f image2 -s 1920x1080 -i %d.png -vcodec libx264 -crf 15  -pix_fmt yuv420p {animationName}.mp4")
+
+    if wipelevel >= 1:
+        subInstruction = ""
+    if wipelevel >= 2:
+        selectedDate = datetime.strptime("01/01/1970", "%d/%m/%Y")
+    if wipelevel >= 3:
+        mainInstruction = ""
+
+
+
     if wipelevel >= 1:
         subInstruction = ""
     if wipelevel >= 2:
