@@ -94,7 +94,6 @@ def getProfile(keys, prompt="Select a profile"):
         print(f"{keyIndex+1}. {key}")
     return list(keys)[getIntInput(len(keys), 0, "")-1]
 
-
 def getDateInput(minVal, maxDate, prompt="Select a date"):
     while True:
         potentialDate = input(prompt + "\n")

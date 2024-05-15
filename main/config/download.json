@@ -31,15 +31,19 @@
             "grid"
         ]
     },
-    "energy": {
-        "startDate": "01/01/2019",
+    "megaDB": {
+        "startDate": "01/01/2016",
         "endDate": "31/03/2024",
         "energyMarket": "NEM",
         "energyReigon": "NSW1",
         "frequency": 1,
         "overRideFiles": false,
-        "windFile": "windData.csv",
+        "windFile": "",
         "dataTypes": [
+            "irradiance",
+            "temperature",
+            "pressure",
+            "rainfall",
             "grid"
         ]
     }

@@ -38,7 +38,11 @@ if "grid" in configData["dataTypes"]:
                 if row.split(",")[0] == date.getDateStr():
                     dataArr = {}
                     for valIndex, val in enumerate(gridLabels):
-                        dataArr[val] = float(row.split(",")[valIndex+1])
+                        try:
+                            dataArr[val] = float(row.split(",")[valIndex+1])
+                        except ValueError:
+                            print(row)
+                            dataArr[val] = 0
                     date.energyData = dataArr
                     gridLines.remove(row)
                     break
