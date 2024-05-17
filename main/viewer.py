@@ -30,8 +30,7 @@ if "grid" in configData["dataTypes"]:
     dataTypeCount = dataTypeCount - 1
     with open(f"./data/processed/grid/{profileName}.csv", "r") as gridDataFile:
         gridLines = gridDataFile.readlines()
-        gridLabels = gridLines[0].split(",")[1:]
-        
+        gridLabels = gridLines[0].replace("\n","").split(",")[1:]
 
         for date in dateList:
             for rowIndex, row in enumerate(gridLines):
@@ -163,7 +162,7 @@ while True:
         options = options + configData["dataTypes"]
         options.append("date")
         options.append("dayoftheyear")
-        xAxis = getProfile(options, "What do you want to be the X-AXIS")
+        xAxis = getProfile(options, "What do you want to be the X-AXIS").replace("\n", "")
 
         # If the User wants the X-axis to be an energy grid value
         doXAxisEnergyData = False
@@ -173,7 +172,7 @@ while True:
             doXAxisEnergyData = True
 
         options = ["windspeed", "windangle"] + configData["dataTypes"] + ["dayoftheyear"]
-        yAxis = getProfile(options, "What do you want to be the Y-AXIS")
+        yAxis = getProfile(options, "What do you want to be the Y-AXIS").replace("\n", "")
 
         # If the User wants the Y-axis to be an energy grid value
         doYAxisEnergyData = False
@@ -188,12 +187,18 @@ while True:
         for date in dateList:
             pointColors.append(dateList[0].date.year - date.date.year)
             if doXAxisEnergyData:
-                xVals.append(date.energyData[xAxis])
+                try:
+                    xVals.append(date.energyData[yAxis])
+                except KeyError:
+                    xVals.append(0)
             else:
                 exec(f"xVals.append(date.{xAxis})")
             
             if doYAxisEnergyData:
-                yVals.append(date.energyData[yAxis])
+                try:
+                    yVals.append(date.energyData[yAxis])
+                except KeyError:
+                    yVals.append(0)
             else:
                 exec(f"yVals.append(date.{yAxis})")
     

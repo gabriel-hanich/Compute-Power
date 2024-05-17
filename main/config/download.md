@@ -8,14 +8,19 @@ Used in `downloader.py` and `mean.py`
 > Note that all dates are to be in the format DD/MM/YYYY
 ## File Structure
 ```
+
 "profileName": {
         "startDate": date,
         "endDate": date,
+        "energyMarket": string,
+        "energyReigon": string,
         "frequency": integer,
         "overRideFiles": boolean,
+        "windFile": string,
+        "solarCapacityFile": string,
         "dataTypes": [
-            dataType(str),
-            dataType(str)
+            string,
+            string
         ]
     },
 ```
@@ -51,6 +56,10 @@ Whether to re-download a file if it has already been downloaded. If set to `true
 
 ### windFile
 The filename of the .csv file that contains the wind data. If left blank, the application wil ignore wind data. 
+
+### solarCapacity
+The path to the file containing the total solar capacity over time for the studied area. [This](https://pv-map.apvi.org.au/analyses) is a good source for data
+
 
 ### dataTypes
 The different categories that will be downloaded. Can be any group of the following:

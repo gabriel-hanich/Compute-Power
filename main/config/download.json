@@ -23,6 +23,7 @@
         "frequency": 1,
         "overRideFiles": false,
         "windFile": "windData.csv",
+        "solarCapacityFile": "ausCapacity.csv",
         "dataTypes": [
             "irradiance",
             "temperature",
@@ -39,11 +40,25 @@
         "frequency": 1,
         "overRideFiles": false,
         "windFile": "",
+        "solarCapacityFile": "ausCapacity.csv",
         "dataTypes": [
             "irradiance",
             "temperature",
             "pressure",
             "rainfall",
+            "grid"
+        ]
+    },
+    "grid": {
+        "startDate": "01/01/2019",
+        "endDate": "31/12/2023",
+        "energyMarket": "NEM",
+        "energyReigon": "NSW1",
+        "frequency": 1,
+        "overRideFiles": false,
+        "windFile": "",
+        "solarCapacityFile": "ausCapacity.csv",
+        "dataTypes": [
             "grid"
         ]
     }

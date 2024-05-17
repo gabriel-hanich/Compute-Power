@@ -8,8 +8,8 @@ import pandas as pd
 # Determine average values for the downloaded .grid files
 
 # Load Profiles
-meanProfile = ""
-dateProfile = ""
+meanProfile = "myHouse"
+dateProfile = "grid"
 units = {"temperature": "Celcius", "irradiance": "MJ/m^2", "pressure": "hPa", "rainfall": "mm", "density": "count"}
 
 # Load the 2 config files
@@ -158,6 +158,24 @@ if doGrid:
             except KeyError:
                 gridDataArr[f"{row['id']} ({row['units']})"] = row["history"]["data"]
     
+    if dateData["solarCapacityFile"] != "":
+        # Normalize solar values
+        capacityVals = {}
+        with open(f"./data/grid/solar/{dateData['solarCapacityFile']}", "r") as capacityFile:
+            for lineIndex, line in enumerate(capacityFile.readlines()):
+                if lineIndex != 0:
+                    capacityVals[line.split(",")[0].replace(" ", "")] = float(line.split(",")[1].replace(",",""))
+
+        gridLabels.append("Normalized Rooftop Solar (GWh)")
+        gridDataArr["Normalized Rooftop Solar (GWh)"] = []
+
+        for dateIndex, date in enumerate(dateList):
+            solarData = gridDataArr['au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)'][dateIndex]
+            # Convert the total rooftop production into a normalized value by first converting GWh to KWh (multiplying by 10^6), and then dividing by total capacity
+            gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/capacityVals[date.strftime('%Y-%m')])
+
+
+
     missingList = []
     with open(f"./data/processed/grid/{dateProfile}.csv", "w") as outputFile:
         # The first row of the CSV is the grid labels
@@ -169,11 +187,14 @@ if doGrid:
             for label in gridLabels:
                 if label != "date":
                     try:
-                        row.append(str(gridDataArr[label][dateIndex]))
+                        if str(gridDataArr[label][dateIndex]) != "None":
+                            row.append(str(gridDataArr[label][dateIndex]))
+                        else:
+                            row.append("0")
                     except IndexError:
                         # This can occur if the tracked variables change across the different years
                         if f"{date.year} {label}" not in missingList:
-                            print(f"   Not enough data points for {date.year} {label}")
+                            # print(f"   Not enough data points for {date.year} {label}")
                             missingList.append(f"{date.year} {label}")
                         row.append("0")
             outputFile.write(",".join(row) + "\n")
