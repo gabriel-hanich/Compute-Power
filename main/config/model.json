@@ -1,0 +1,24 @@
+{
+    "SRRPeriod": {
+        "doGammaTuning": false,
+        "doCValTuning": false,
+        "models" : [
+            {
+                "modelType": "demand",
+                "kernel": "rbf",
+                "cVal": 1,
+                "gammaVal": 0.1,
+                "testValCount": 400,
+                "doDataDump": true
+            },
+            {
+                "modelType": "solar",
+                "kernel": "linear",
+                "cVal": 1,
+                "gammaVal": 0.1,
+                "testValCount": 400,
+                "doDataDump": true
+            }
+        ]
+    }
+}

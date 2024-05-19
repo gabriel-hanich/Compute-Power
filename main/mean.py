@@ -1,5 +1,6 @@
 from func.valueMaps import ValueMap
 from func.util import readGridDataFromFile, getDateList, getProfile
+
 import json
 from datetime import datetime
 import numpy as np
@@ -172,7 +173,11 @@ if doGrid:
         for dateIndex, date in enumerate(dateList):
             solarData = gridDataArr['au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)'][dateIndex]
             # Convert the total rooftop production into a normalized value by first converting GWh to KWh (multiplying by 10^6), and then dividing by total capacity
-            gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/capacityVals[date.strftime('%Y-%m')])
+            try:
+                gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/capacityVals[date.strftime('%Y-%m')])
+            except KeyError: # If there is no normalization value for this period
+                lastCapacity = capacityVals[list(capacityVals.keys())[-1]]
+                gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/lastCapacity)
 
 
 
@@ -199,7 +204,7 @@ if doGrid:
                         row.append("0")
             outputFile.write(",".join(row) + "\n")
             rowCount += 1
-    print(f"Written {rowCount} lines to data/processed/grid/generation/{dateProfile}.csv")
+    print(f"Written {rowCount} lines to data\processed\grid\{dateProfile}.csv")
     
 
 

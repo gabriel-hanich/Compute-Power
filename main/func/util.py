@@ -105,3 +105,36 @@ def getDateInput(minVal, maxDate, prompt="Select a date"):
                 print("Date is not within range")
         except ValueError:
             print("Invalid Date")
+
+def calculateRMSE(predicted, observed):
+    if len(predicted) != len(observed):
+        print("ERROR, two lists aren't the same length")
+        
+    rmse = 0
+    for valIndex, val in enumerate(predicted):
+        rmse = float(rmse + (predicted[valIndex] - observed[valIndex])**2)
+        
+    rmse = rmse/len(predicted)
+    return rmse ** 0.5
+
+def predict(xValue, scalerX, scalerY, svr):
+    transformedVal = scalerX.transform(xValue)
+    predictedVal = svr.predict(transformedVal)
+    val = scalerY.inverse_transform(predictedVal.reshape(1, -1))
+    return val
+
+def getTrainingRow(datePoint, modelType):
+    row = [
+        datePoint.dayoftheyear,
+        datePoint.temperature,
+        datePoint.irradiance,
+        datePoint.pressure,
+        datePoint.rainfall,
+    ]
+    if modelType == "demand":
+        row.append(datePoint.energyData["au.nem.nsw1.demand.energy (GWh)"])
+    elif modelType == "solar":
+        row.append(datePoint.energyData["Normalized Rooftop Solar (GWh)"])
+    elif modelType == "wind":
+        row.append(datePoint.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])
+    return row

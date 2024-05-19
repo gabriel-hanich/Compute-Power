@@ -3,7 +3,7 @@ Path: `/config/download.json`
 
 This file describes the nature, type and duration of the data downloaded by `BOMScraper.py`. Changing this file changes the start and end dates for the collection of the GRID data from BOM
 
-Used in `downloader.py` and `mean.py`
+Used in `downloader.py` and `mean.py` and `viewer.py` and `modelTrainer.py`
 
 > Note that all dates are to be in the format DD/MM/YYYY
 ## File Structure
