@@ -1,0 +1,594 @@
+[
+    {
+        "id": "0",
+        "date": -1,
+        "dayoftheyear": 0,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.51241782968023,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0340218104814982,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "1",
+        "date": -1,
+        "dayoftheyear": 10,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.29599105205327,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0338068860158103,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "2",
+        "date": -1,
+        "dayoftheyear": 20,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.1033574031407,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0335919615501539,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "3",
+        "date": -1,
+        "dayoftheyear": 30,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.93376859823718,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.03337703708447,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "4",
+        "date": -1,
+        "dayoftheyear": 40,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.78635880055768,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0331621126188146,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "5",
+        "date": -1,
+        "dayoftheyear": 50,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.66015694856483,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0329471881531056,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "6",
+        "date": -1,
+        "dayoftheyear": 60,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.55410045336274,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0327322636874348,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "7",
+        "date": -1,
+        "dayoftheyear": 70,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.46705010718674,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0325173392217528,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "8",
+        "date": -1,
+        "dayoftheyear": 80,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.39780602201213,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0323024147560829,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "9",
+        "date": -1,
+        "dayoftheyear": 90,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.34512439757114,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.032087490290383,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "10",
+        "date": -1,
+        "dayoftheyear": 100,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.3077349009257,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.031872565824703,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "11",
+        "date": -1,
+        "dayoftheyear": 110,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.28435842563252,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.031657641359045,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "12",
+        "date": -1,
+        "dayoftheyear": 120,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.27372498779437,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0314427168933493,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "13",
+        "date": -1,
+        "dayoftheyear": 130,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.27459150919435,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0312277924276476,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "14",
+        "date": -1,
+        "dayoftheyear": 140,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.2857592345186,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.03101286796197,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "15",
+        "date": -1,
+        "dayoftheyear": 150,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.30609053051649,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.030797943496296,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "16",
+        "date": -1,
+        "dayoftheyear": 160,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.33452481994527,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0305830190306282,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "17",
+        "date": -1,
+        "dayoftheyear": 170,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.3700934123039,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0303680945649634,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "18",
+        "date": -1,
+        "dayoftheyear": 180,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.41193300659546,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0301531700992541,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "19",
+        "date": -1,
+        "dayoftheyear": 190,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.45929765854135,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0299382456335688,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "20",
+        "date": -1,
+        "dayoftheyear": 200,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.51156902557338,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0297233211679044,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "21",
+        "date": -1,
+        "dayoftheyear": 210,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.56826472720485,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0295083967022285,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "22",
+        "date": -1,
+        "dayoftheyear": 220,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.62904468576218,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0292934722365654,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "23",
+        "date": -1,
+        "dayoftheyear": 230,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.69371534231362,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0290785477708826,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "24",
+        "date": -1,
+        "dayoftheyear": 240,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.76223167468945,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.028863623305173,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "25",
+        "date": -1,
+        "dayoftheyear": 250,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.83469697799717,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.028648698839513,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "26",
+        "date": -1,
+        "dayoftheyear": 260,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.9113604025269,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0284337743738188,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "27",
+        "date": -1,
+        "dayoftheyear": 270,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 166.99261227878534,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.028218849908133,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "28",
+        "date": -1,
+        "dayoftheyear": 280,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.07897729393193,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0280039254424924,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "29",
+        "date": -1,
+        "dayoftheyear": 290,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.17110561752125,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0277890009767812,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "30",
+        "date": -1,
+        "dayoftheyear": 300,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.2697621065913,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.027574076511093,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "31",
+        "date": -1,
+        "dayoftheyear": 310,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.37581375013949,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.027359152045423,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "32",
+        "date": -1,
+        "dayoftheyear": 320,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.49021554040664,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0271442275797522,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "33",
+        "date": -1,
+        "dayoftheyear": 330,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.61399498261548,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0269293031140652,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "34",
+        "date": -1,
+        "dayoftheyear": 340,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.7482354754737,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0267143786483943,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "35",
+        "date": -1,
+        "dayoftheyear": 350,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 167.8940588114624,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.026499454182716,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    },
+    {
+        "id": "36",
+        "date": -1,
+        "dayoftheyear": 360,
+        "temperature": 20,
+        "irradiance": 32.677956708605436,
+        "pressure": 20.269040832391024,
+        "rainfall": 3.830795359959049,
+        "windspeed": 7.6,
+        "windangle": 180,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 168.05260705843332,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 1.0262845297170313,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 0.36999999999999994
+        }
+    }
+]

@@ -1,6 +1,11 @@
 class datePoint:
-    def __init__(self, date, temperature=-1, irradiance=-1, pressure=-1, rainfall=-1, windspeed=-1, windangle=-1, energyData={}) -> None:
-        self.date = date
+    def __init__(self, date, temperature=-1, irradiance=-1, pressure=-1, rainfall=-1, windspeed=-1, windangle=-1, energyData={}, objId="") -> None:
+        if type(date) == int:
+            self.date = -1
+            self.dayoftheyear = date
+        else:
+            self.date = date
+            self.dayoftheyear = date.timetuple().tm_yday
         self.temperature = temperature
         self.irradiance = irradiance
         self.pressure = pressure
@@ -8,8 +13,9 @@ class datePoint:
         self.windspeed = windspeed
         self.windangle = windangle
         self.energyData = energyData
+        self.id = objId
 
-        self.dayoftheyear = date.timetuple().tm_yday
+
 
     def getDateStr(self):
         return self.date.strftime("%d/%m/%Y")
@@ -43,3 +49,19 @@ class datePoint:
             
         except ValueError:
              print("SOME OR ALL OF THE REQUIRED ENERGY GRID VALUES ARE NOT PRESENT FOR THIS DAY")
+    
+    def getDict(self):
+        return {
+             "id": self.id,
+             "date": self.date,
+             "dayoftheyear": self.dayoftheyear,
+             "temperature": self.temperature,
+             "irradiance": self.irradiance,
+             "pressure": self.pressure,
+             "rainfall": self.rainfall,
+             "windspeed": self.windspeed,
+             "windangle": self.windangle,
+             "grid": self.energyData,
+             "demand": self.energyData["au.nem.nsw1.demand.energy (GWh)"],
+             "solar": self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"],
+        }

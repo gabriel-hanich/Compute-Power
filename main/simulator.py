@@ -1,4 +1,5 @@
 # The main thing
+from func.datePoint import datePoint
 from func.regressor import SVRregressor, TurbineRegressor
 from func.util import getProfile, getIntInput
 
@@ -44,6 +45,11 @@ print(f"Selected {','.join(simulationProfiles)} profile for scenarios")
 modelFileData = modelFileData[modelProfile]
 downloadData = downloadData[downloadDataProfile]
 
+energyKeys = {
+    "demand":"au.nem.nsw1.demand.energy (GWh)",
+    "solar": "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"
+}
+
 
 # Load the SVR models
 regressors = []
@@ -54,6 +60,8 @@ for model in modelFileData['models']:
 
     regressors.append(SVRregressor(model['modelType'], svr, scalerX, scalerY))
 
+
+results = {}
 for simulationName in simulationProfiles:
     sceneConfig = simulationConfig[simulationName]
     
@@ -102,13 +110,53 @@ for simulationName in simulationProfiles:
         valRanges = sceneConfig["variables"][var]
         vals.append(list(range(valRanges["min"], valRanges["max"], valRanges["step"])))
 
-    print(vals)
-
     combinations = itertools.product(*vals)
-    sceneResults = np.empty((len(vals[0]), len(changingVars)))
-    a = []
+    results[simulationName] = []
+
     for combinationIndex, combination in enumerate(combinations):
-        a.append(combination)
-    test = np.array(a)
-    test.reshape((len(vals[0]), len(vals[1])))
-    
+        # Create date to train
+        instanceData = {"id": str(combinationIndex)}
+        for parameter in sceneConfig["variables"]:
+            try:
+                cIndex = changingVars.index(parameter)
+                instanceData[parameter] = combination[cIndex]
+            except ValueError:
+                instanceData[parameter] = sceneConfig["variables"][parameter]
+
+        thisDate = datePoint(
+            instanceData["dayOfTheYear"],
+            instanceData["temperature"],
+            instanceData["irradiance"],
+            instanceData["pressure"],
+            instanceData["rainfall"],
+            instanceData["windspeed"],
+            instanceData["windangle"],
+            {},
+            instanceData["id"],
+        )
+
+        # Do Regressor Stuff
+        energyData = {}
+        for regressor in regressors:
+            val = regressor.predict(thisDate)
+            energyData[energyKeys[regressor.regressorType]] = val[0][0]
+
+        # Determine Wind Data
+        windGen = 0
+        for turbine in windTurbines:
+            windGen += turbine.predictOutput(thisDate.windspeed, thisDate.windangle)
+        # Needed to convert kw to gw
+        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = windGen / 1000000
+
+        thisDate.energyData = energyData
+
+        results[simulationName].append(thisDate)
+
+
+
+    # Write Data to File
+    with open(f"./data/processed/sim/{simulationName}.json", "w", encoding="utf-8") as outputFile:
+        res = []
+        for date in results[simulationName]:
+            res.append(date.getDict())
+        json.dump(res, outputFile, indent=4) 

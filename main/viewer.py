@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from func.valueMaps import ValueMap
 import time
 
-profileName = ""
+profileName = "SRRPeriod"
 
 with open("./config/download.json", "r", encoding="utf-8") as dataProfileFile:
     configData = json.load(dataProfileFile)
@@ -36,7 +36,7 @@ wipelevel = 0
 doYearColor = True # Change the color of the points according to their year
 
 while True:
-    options = ["View specific Date", "Graph Something", "Produce Map Animation", "Exit"]
+    options = ["View specific Date", "Graph Something", "View Simulation Data","Produce Map Animation", "Exit"]
     if mainInstruction == "":
         mainInstruction = getProfile(options, "(Root) Select an Action")
 
@@ -145,6 +145,64 @@ while True:
 
         wipelevel = 3
     
+    if mainInstruction == "View Simulation Data":
+        wipelevel = 3
+        simFiles = os.listdir("./data/processed/sim")
+        simProfiles = []
+        for simFile in simFiles:
+            if ".json" in simFile:
+                simProfiles.append(simFile)
+        simProfile = getProfile(simProfiles, "(Sim) Select an Simulation Profile")    
+        print(f"Loading {simProfile} data")
+        with open(f"./data/processed/sim/{simProfile}") as simFile:
+            simData = json.load(simFile)
+
+        options = list(simData[0].keys())
+        xAxis = getProfile(options, "(Sim) What do you want the X-Axis to be?")
+        xGrid = False
+        if xAxis == "grid":
+            xGrid = True
+            xAxis = getProfile(simData[0]['grid'].keys(), "(Sim) What do you want the X-Axis to be?")
+        
+        yAxis = getProfile(options, "(Sim) What do you want the Y-Axis to be?")
+        yGrid = False
+        if yAxis == "grid":
+            yGrid = True
+            yAxis = getProfile(simData[0]['grid'].keys(), "(Sim) What do you want the X-Axis to be?")
+
+        color = getProfile(options, "(Sim) What attribute should control dot color?")
+
+        x = []
+        y = []
+        c = []
+        for instance in simData:
+            if xGrid:
+                x.append(instance["grid"][xAxis])
+            else:
+                x.append(instance[xAxis])
+
+            if yGrid:
+                y.append(instance["grid"][yAxis])
+            else:
+                y.append(instance[yAxis])
+
+            c.append(instance[color])
+
+        plt.scatter(x, y, c=c)
+        plt.xlabel(xAxis)
+        plt.ylabel(yAxis)
+        plt.colorbar()
+        plt.show()
+        plt.clf()
+
+        doExport = input("y/N Do you want to export the data to a .csv file?\n")
+        if doExport.lower() == "y":
+            with open(f"./data/processed/sim/{simProfile.replace('.json', '')}.csv", "w") as outputFile:
+                outputFile.write(f"{xAxis},{yAxis},{color}\n")
+                for index, val in enumerate(x):
+                    outputFile.write(f"{val},{y[index]},{c[index]}\n")
+            print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}.csv")
+
     if mainInstruction == "Produce Map Animation":
         wipelevel = 3
         startDate = getDateInput(dateList[0].date, dateList[-1].date, f"What date should the starting frame have? ({dateList[0].getDateStr()}-{dateList[-1].getDateStr()})")
