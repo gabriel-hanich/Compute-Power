@@ -198,7 +198,7 @@ while True:
         doExport = input("y/N Do you want to export the data to a .csv file?\n")
         if doExport.lower() == "y":
             with open(f"./data/processed/sim/{simProfile.replace('.json', '')}.csv", "w") as outputFile:
-                outputFile.write(f"{xAxis},{yAxis},{color}\n")
+                outputFile.write(f"{xAxis.replace('.', ' ')},{yAxis.replace('.', ' ')},{color.replace('.', ' ')}\n")
                 for index, val in enumerate(x):
                     outputFile.write(f"{val},{y[index]},{c[index]}\n")
             print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}.csv")

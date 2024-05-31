@@ -16,7 +16,7 @@
             "windangle": 180
         }
     },
-    "variedTemp": {
+    "variedWind": {
         "scenarioName": "typical",
         "solarCapacity": 34200000,
         "turbineName": "vestasV164",
@@ -25,11 +25,28 @@
         "turbineDirectionRange": 10,
         "variables": {
             "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
-            "temperature": {"min": 0, "max": 30, "step": 1},
+            "temperature": 22,
             "irradiance": 32.677956708605436,
             "pressure": 20.269040832391024,
             "rainfall": 3.830795359959049,
-            "windspeed": 7.6,
+            "windspeed": {"min": 0, "max": 25, "step": 1},
+            "windangle": 180
+        }
+    },
+    "variedEverything": {
+        "scenarioName": "typical",
+        "solarCapacity": 34200000,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 359,
+        "turbineDirectionRange": 10,
+        "variables": {
+            "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
+            "temperature": {"min": 0, "max": 50, "step": 5},
+            "irradiance": {"min": 0, "max": 35, "step": 5},
+            "pressure": {"min": 5, "max": 35, "step": 5},
+            "rainfall": 3.830795359959049,
+            "windspeed": {"min": 0, "max": 20, "step": 5},
             "windangle": 180
         }
     }

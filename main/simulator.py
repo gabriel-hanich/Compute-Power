@@ -7,7 +7,7 @@ import json
 import numpy as np
 import itertools
 from joblib import load
-from scipy.interpolate import interp1d
+import time
 
 # Load Profiles
 downloadDataProfile = "SRRPeriod"
@@ -50,6 +50,7 @@ energyKeys = {
     "solar": "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"
 }
 
+startTime = time.time()
 
 # Load the SVR models
 regressors = []
@@ -111,6 +112,7 @@ for simulationName in simulationProfiles:
         vals.append(list(range(valRanges["min"], valRanges["max"], valRanges["step"])))
 
     combinations = itertools.product(*vals)
+    combinationCount = len(list(itertools.product(*vals)))
     results[simulationName] = []
 
     for combinationIndex, combination in enumerate(combinations):
@@ -152,7 +154,7 @@ for simulationName in simulationProfiles:
 
         results[simulationName].append(thisDate)
 
-
+        print(f"Loading {combinationIndex}/{combinationCount} for scenario {simulationName}", end="\r", flush=True)
 
     # Write Data to File
     with open(f"./data/processed/sim/{simulationName}.json", "w", encoding="utf-8") as outputFile:
@@ -160,3 +162,6 @@ for simulationName in simulationProfiles:
         for date in results[simulationName]:
             res.append(date.getDict())
         json.dump(res, outputFile, indent=4) 
+print("\n")
+
+print(f"Loaded in {round(time.time() - startTime, 3)} Seconds")
