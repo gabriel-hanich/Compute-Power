@@ -11,8 +11,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 
 
-trainingProfile = "SRRPeriod"
-dataProfile = "SRRPeriod"
+trainingProfile = ""
+dataProfile = ""
 
 # Load the 2 config files
 with open("./config/model.json") as trainingFile:

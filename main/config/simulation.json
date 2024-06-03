@@ -25,7 +25,7 @@
         "turbineDirectionRange": 10,
         "variables": {
             "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
-            "temperature": 22,
+            "temperature": {"min": 15, "max": 30, "step": 5},
             "irradiance": 32.677956708605436,
             "pressure": 20.269040832391024,
             "rainfall": 3.830795359959049,
@@ -41,12 +41,12 @@
         "meanTurbineDirection": 359,
         "turbineDirectionRange": 10,
         "variables": {
-            "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
-            "temperature": {"min": 0, "max": 50, "step": 5},
+            "dayOfTheYear": {"min": 0, "max": 365, "step": 180},
+            "temperature": {"min": 0, "max": 45, "step": 5},
             "irradiance": {"min": 0, "max": 35, "step": 5},
-            "pressure": {"min": 5, "max": 35, "step": 5},
+            "pressure": 20,
             "rainfall": 3.830795359959049,
-            "windspeed": {"min": 0, "max": 20, "step": 5},
+            "windspeed": {"min": 0, "max": 30, "step": 1},
             "windangle": 180
         }
     }

@@ -51,9 +51,19 @@ class datePoint:
              print("SOME OR ALL OF THE REQUIRED ENERGY GRID VALUES ARE NOT PRESENT FOR THIS DAY")
     
     def getDict(self):
-        windData = 0
+        windPortion = 0
+        solarPortion = 0 
+        renewablePortion = 0
         try:
-             windData = float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+             windPortion = float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+        except ZeroDivisionError:
+             pass
+        try:
+             solarPortion = float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+        except ZeroDivisionError:
+             pass
+        try:
+             renewablePortion = (float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
         except ZeroDivisionError:
              pass
 
@@ -67,6 +77,8 @@ class datePoint:
              "rainfall": self.rainfall,
              "windspeed": self.windspeed,
              "windangle": self.windangle,
+             "windPortion": windPortion,
+             "solarPortion": solarPortion,
+             "renewablePortion": renewablePortion,
              "grid": self.energyData,
-             "windPortion": windData,
         }

@@ -198,9 +198,22 @@ while True:
         doExport = input("y/N Do you want to export the data to a .csv file?\n")
         if doExport.lower() == "y":
             with open(f"./data/processed/sim/{simProfile.replace('.json', '')}.csv", "w") as outputFile:
-                outputFile.write(f"{xAxis.replace('.', ' ')},{yAxis.replace('.', ' ')},{color.replace('.', ' ')}\n")
-                for index, val in enumerate(x):
-                    outputFile.write(f"{val},{y[index]},{c[index]}\n")
+                labels = list(simData[0].keys())
+                labels.remove("grid")
+                labels = labels + list(simData[0]["grid"].keys())
+                for labelIndex, label in enumerate(labels):
+                    labels[labelIndex] = label.replace(".", "-")
+
+                outputFile.write(",".join(labels))
+                for row in simData:
+                    vals = []
+                    for key in labels:
+                        try:
+                            vals.append(str(row[key]))
+                        except KeyError:
+                            vals.append(str(row["grid"][key.replace("-", ".")]))
+                    outputFile.write("\n" + ",".join(vals))
+
             print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}.csv")
 
     if mainInstruction == "Produce Map Animation":

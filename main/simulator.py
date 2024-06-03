@@ -162,6 +162,8 @@ for simulationName in simulationProfiles:
         for date in results[simulationName]:
             res.append(date.getDict())
         json.dump(res, outputFile, indent=4) 
+
+
 print("\n")
 
 print(f"Loaded in {round(time.time() - startTime, 3)} Seconds")
