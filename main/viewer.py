@@ -112,8 +112,12 @@ while True:
         xVals = []
         yVals = []
         pointColors = []
+        yearsList = []
         for date in dateList:
             pointColors.append(dateList[0].date.year - date.date.year)
+            if date.date.year not in yearsList:
+                yearsList.append(date.date.year)
+
             if doXAxisEnergyData:
                 try:
                     xVals.append(date.energyData[yAxis])
@@ -137,7 +141,10 @@ while True:
             plt.plot(xVals, yVals)
         else:
             if doYearColor:
-                plt.scatter(xVals, yVals, c=pointColors, cmap='viridis')
+                yearsList.reverse()
+                a = plt.scatter(xVals, yVals, c=pointColors, cmap='viridis')
+                # plt.legend(handles=scatter.legend_elements()[0], labels=classes)
+                plt.legend(handles=a.legend_elements()[0], labels=yearsList)
             else:
                 plt.scatter(xVals, yVals) 
         plt.show()

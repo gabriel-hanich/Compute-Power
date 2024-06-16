@@ -7,12 +7,13 @@ import json
 import numpy as np
 import itertools
 from joblib import load
+from datetime import datetime
 import time
 
 # Load Profiles
 downloadDataProfile = "SRRPeriod"
 modelProfile = "SRRPeriod"
-simulationProfiles = []
+simulationProfiles = ["realVals"]
 
 units = {"temperature": "Celcius", "irradiance": "MJ/m^2", "pressure": "hPa", "rainfall": "mm", "density": "count"}
 
@@ -99,62 +100,104 @@ for simulationName in simulationProfiles:
         )
 
     # Run the model
-    # Determine values that will be changing
-    changingVars = []
-    for variable in sceneConfig["variables"].keys():
-        if type(sceneConfig["variables"][variable]) == dict:
-            changingVars.append(variable)
-
-    # Calculate the variables that need to be changed
-    vals = []
-    for varIndex, var in enumerate(changingVars):
-        valRanges = sceneConfig["variables"][var]
-        vals.append(list(range(valRanges["min"], valRanges["max"], valRanges["step"])))
-
-    combinations = itertools.product(*vals)
-    combinationCount = len(list(itertools.product(*vals)))
+    dateVals = []
     results[simulationName] = []
+    if sceneConfig["useRealClimateVar"]:
+        # Values change based on real climate data
+        startDate = datetime.strptime(sceneConfig["variables"]["startDate"], "%d/%m/%Y")
+        endDate = datetime.strptime(sceneConfig["variables"]["endDate"], "%d/%m/%Y")
+        with open(f"./data/processed/climate/{downloadDataProfile}.csv", "r") as climateFile:
+            for lineIndex, line in enumerate(climateFile.readlines()):
+                if lineIndex != 0:
+                    vals = line.split(",")
+                    thisDate = datetime.strptime(vals[0], "%d/%m/%Y")
+                    if thisDate > startDate and thisDate < endDate:
+                        thisDateVal = datePoint(
+                            thisDate,
+                            float(vals[2]),
+                            float(vals[1]),
+                            float(vals[3]),
+                            float(vals[4]),
+                            0, 
+                            0,
+                            {},
+                            str(lineIndex)
+                        )
+                        dateVals.append(thisDateVal)
 
-    for combinationIndex, combination in enumerate(combinations):
-        # Create date to train
-        instanceData = {"id": str(combinationIndex)}
-        for parameter in sceneConfig["variables"]:
-            try:
-                cIndex = changingVars.index(parameter)
-                instanceData[parameter] = combination[cIndex]
-            except ValueError:
-                instanceData[parameter] = sceneConfig["variables"][parameter]
+        with open("./data/processed/wind/windData.csv") as windData:
+            for lineIndex, line in enumerate(windData.readlines()):
+                if lineIndex != 0:
+                    lineVals = line.split(",")
+                    searchDate = datetime.strptime(lineVals[0], "%d/%m/%Y")
+                    if searchDate > startDate and searchDate < endDate:
+                        for dateVal in dateVals:
+                            if dateVal.date == searchDate:
+                                dateVal.windspeed = float(lineVals[1])
+                                dateVal.windangle = float(lineVals[4])
 
-        thisDate = datePoint(
-            instanceData["dayOfTheYear"],
-            instanceData["temperature"],
-            instanceData["irradiance"],
-            instanceData["pressure"],
-            instanceData["rainfall"],
-            instanceData["windspeed"],
-            instanceData["windangle"],
-            {},
-            instanceData["id"],
-        )
+    else:
+        # Values change based on config settings
+        changingVars = []
+        for variable in sceneConfig["variables"].keys():
+            if type(sceneConfig["variables"][variable]) == dict:
+                changingVars.append(variable)
 
+        # Calculate the variables that need to be changed
+        vals = []
+        for varIndex, var in enumerate(changingVars):
+            valRanges = sceneConfig["variables"][var]
+            vals.append(list(range(valRanges["min"], valRanges["max"], valRanges["step"])))
+
+        combinations = itertools.product(*vals)
+        combinationCount = len(list(itertools.product(*vals)))
+        
+    
+
+        for combinationIndex, combination in enumerate(combinations):
+            # Create date to train
+            instanceData = {"id": str(combinationIndex)}
+            for parameter in sceneConfig["variables"]:
+                try:
+                    cIndex = changingVars.index(parameter)
+                    instanceData[parameter] = combination[cIndex]
+                except ValueError:
+                    instanceData[parameter] = sceneConfig["variables"][parameter]
+
+            thisDateVal = datePoint(
+                instanceData["dayOfTheYear"],
+                instanceData["temperature"],
+                instanceData["irradiance"],
+                instanceData["pressure"],
+                instanceData["rainfall"],
+                instanceData["windspeed"],
+                instanceData["windangle"],
+                {},
+                instanceData["id"],
+            )
+            dateVals.append(thisDateVal)
+
+    combinationCount = len(dateVals)
+    for dateIndex, dateVal in enumerate(dateVals):
         # Do Regressor Stuff
         energyData = {}
         for regressor in regressors:
-            val = regressor.predict(thisDate)
+            val = regressor.predict(dateVal)
             energyData[energyKeys[regressor.regressorType]] = val[0][0]
 
         # Determine Wind Data
         windGen = 0
         for turbine in windTurbines:
-            windGen += turbine.predictOutput(thisDate.windspeed, thisDate.windangle)
+            windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle)
         # Needed to convert kw to gw
         energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = windGen / 1000000
 
-        thisDate.energyData = energyData
+        dateVal.energyData = energyData
 
-        results[simulationName].append(thisDate)
+        results[simulationName].append(dateVal)
 
-        print(f"Loading {combinationIndex}/{combinationCount} for scenario {simulationName}", end="\r", flush=True)
+        print(f"Loading {dateIndex}/{combinationCount} for scenario {simulationName}", end="\r", flush=True)
+
 
     # Write Data to File
     with open(f"./data/processed/sim/{simulationName}.json", "w", encoding="utf-8") as outputFile:

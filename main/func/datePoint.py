@@ -54,6 +54,7 @@ class datePoint:
         windPortion = 0
         solarPortion = 0 
         renewablePortion = 0
+        
         try:
              windPortion = float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
         except ZeroDivisionError:
@@ -66,10 +67,13 @@ class datePoint:
              renewablePortion = (float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
         except ZeroDivisionError:
              pass
+     
+
+             
 
         return {
              "id": self.id,
-             "date": self.date,
+             "date": str(self.date),
              "dayoftheyear": self.dayoftheyear,
              "temperature": self.temperature,
              "irradiance": self.irradiance,
