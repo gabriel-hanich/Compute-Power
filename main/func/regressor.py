@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.interpolate import interp1d
+import math
 
 class SVRregressor:
     def __init__(self, type, svr, scalerX, scalerY) -> None:
@@ -37,4 +38,16 @@ class TurbineRegressor:
         self.linearRegressor = interp1d(curveData[:,0], curveData[:,1])
 
     def predictOutput(self, windspeed, windangle):
-        return self.linearRegressor(windspeed)
+        angleDiff = (self.turbineAngle - windangle + 180 + 360) % 360 - 180
+
+        # print(f"{windangle}, {self.}")
+
+        if abs(angleDiff) < 90:
+            windComp = windspeed * math.cos(angleDiff * (2*math.pi/180))
+        else:
+            windComp = 0
+
+        if windComp < 0:
+            windComp = 0
+
+        return self.linearRegressor(windComp)

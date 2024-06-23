@@ -23,16 +23,16 @@
         "turbineName": "vestasV164",
         "turbineCount": 100,
         "meanTurbineDirection": 359,
-        "turbineDirectionRange": 10,
+        "turbineDirectionRange": 0,
         "useRealClimateVar": false,
         "variables": {
-            "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
-            "temperature": {"min": 15, "max": 30, "step": 5},
+            "dayOfTheYear": 1,
+            "temperature": 27.5,
             "irradiance": 32.677956708605436,
             "pressure": 20.269040832391024,
             "rainfall": 3.830795359959049,
-            "windspeed": {"min": 0, "max": 25, "step": 1},
-            "windangle": 180
+            "windspeed": 10,
+            "windangle": {"min": 0, "max": 360, "step": 1}
         }
     },
     "variedEverything": {

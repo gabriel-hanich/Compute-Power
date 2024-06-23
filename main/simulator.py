@@ -13,7 +13,7 @@ import time
 # Load Profiles
 downloadDataProfile = "SRRPeriod"
 modelProfile = "SRRPeriod"
-simulationProfiles = ["realVals"]
+simulationProfiles = ["variedWind"]
 
 units = {"temperature": "Celcius", "irradiance": "MJ/m^2", "pressure": "hPa", "rainfall": "mm", "density": "count"}
 
