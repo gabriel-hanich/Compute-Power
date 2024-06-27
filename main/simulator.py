@@ -13,7 +13,7 @@ import time
 # Load Profiles
 downloadDataProfile = "SRRPeriod"
 modelProfile = "SRRPeriod"
-simulationProfiles = ["variedWind"]
+simulationProfiles = []
 
 units = {"temperature": "Celcius", "irradiance": "MJ/m^2", "pressure": "hPa", "rainfall": "mm", "density": "count"}
 
@@ -188,7 +188,7 @@ for simulationName in simulationProfiles:
         # Determine Wind Data
         windGen = 0
         for turbine in windTurbines:
-            windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle)
+            windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle, sceneConfig["turbinesRotate"])
         # Needed to convert kw to gw
         energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = windGen / 1000000
 
@@ -199,13 +199,18 @@ for simulationName in simulationProfiles:
         print(f"Loading {dateIndex}/{combinationCount} for scenario {simulationName}", end="\r", flush=True)
 
 
+    windPortion = 0
+    portionCount = 0
     # Write Data to File
     with open(f"./data/processed/sim/{simulationName}.json", "w", encoding="utf-8") as outputFile:
         res = []
         for date in results[simulationName]:
-            res.append(date.getDict())
+            dateData = date.getDict()
+            windPortion += dateData["windPortion"]
+            portionCount += 1
+            res.append(dateData)
         json.dump(res, outputFile, indent=4) 
-
+    print(f"\n{simulationName} has a mean wind portion of {round(windPortion/portionCount, 6)}")
 
 print("\n")
 

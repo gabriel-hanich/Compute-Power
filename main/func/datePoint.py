@@ -69,8 +69,6 @@ class datePoint:
              pass
      
 
-             
-
         return {
              "id": self.id,
              "date": str(self.date),

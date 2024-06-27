@@ -37,7 +37,11 @@ class TurbineRegressor:
         self.turbineAngle = turbineAngle
         self.linearRegressor = interp1d(curveData[:,0], curveData[:,1])
 
-    def predictOutput(self, windspeed, windangle):
+    def predictOutput(self, windspeed, windangle, rotatingTurbines):
+        if not rotatingTurbines:
+            return self.linearRegressor(windspeed)
+        
+        # If the turbines aren't rott
         angleDiff = (self.turbineAngle - windangle + 180 + 360) % 360 - 180
 
         # print(f"{windangle}, {self.}")

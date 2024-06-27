@@ -6,6 +6,7 @@
         "turbineCount": 100,
         "meanTurbineDirection": 359,
         "turbineDirectionRange": 10,
+        "turbinesRotate": false,
         "useRealClimateVar": false,
         "variables": {
             "dayOfTheYear": {"min": 0, "max": 365, "step": 10},
@@ -24,6 +25,7 @@
         "turbineCount": 100,
         "meanTurbineDirection": 359,
         "turbineDirectionRange": 0,
+        "turbinesRotate": false,
         "useRealClimateVar": false,
         "variables": {
             "dayOfTheYear": 1,
@@ -42,6 +44,7 @@
         "turbineCount": 100,
         "meanTurbineDirection": 359,
         "turbineDirectionRange": 10,
+        "turbinesRotate": false,
         "useRealClimateVar": false,
         "variables": {
             "dayOfTheYear": {"min": 0, "max": 365, "step": 180},
@@ -53,17 +56,74 @@
             "windangle": 180
         }
     },
-    "realVals": {
+    "N_turbines": {
         "scenarioName": "typical",
         "solarCapacity": 34200000,
         "turbineName": "vestasV164",
         "turbineCount": 100,
-        "meanTurbineDirection": 359,
+        "meanTurbineDirection": 0,
         "turbineDirectionRange": 10,
+        "turbinesRotate": false,
         "useRealClimateVar": true,
         "variables": {
             "startDate": "01/01/2019",
-            "endDate": "31/12/2019"
+            "endDate": "31/03/2024"
+        }
+    },
+    "E_turbines": {
+        "scenarioName": "typical",
+        "solarCapacity": 34200000,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 90,
+        "turbineDirectionRange": 10,
+        "turbinesRotate": false,
+        "useRealClimateVar": true,
+        "variables": {
+            "startDate": "01/01/2019",
+            "endDate": "31/03/2024"
+        }
+    },
+    "S_turbines": {
+        "scenarioName": "typical",
+        "solarCapacity": 34200000,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 180,
+        "turbineDirectionRange": 10,
+        "turbinesRotate": false,
+        "useRealClimateVar": true,
+        "variables": {
+            "startDate": "01/01/2019",
+            "endDate": "31/03/2024"
+        }
+    },
+    "W_turbines": {
+        "scenarioName": "typical",
+        "solarCapacity": 34200000,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 270,
+        "turbineDirectionRange": 10,
+        "turbinesRotate": false,
+        "useRealClimateVar": true,
+        "variables": {
+            "startDate": "01/01/2019",
+            "endDate": "31/03/2024"
+        }
+    },
+    "Varied_turbines": {
+        "scenarioName": "typical",
+        "solarCapacity": 34200000,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 0,
+        "turbineDirectionRange": 360,
+        "turbinesRotate": false,
+        "useRealClimateVar": true,
+        "variables": {
+            "startDate": "01/01/2019",
+            "endDate": "31/03/2024"
         }
     }
 }
