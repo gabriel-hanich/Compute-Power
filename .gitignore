@@ -165,3 +165,4 @@ test/data/density/density.grid
 *.grib
 *.png
 *.joblib
+main/data/processed/sim/variedEverything.json

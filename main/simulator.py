@@ -11,7 +11,7 @@ from datetime import datetime
 import time
 
 # Load Profiles
-downloadDataProfile = "SRRPeriod"
+downloadDataProfile = ""
 modelProfile = "SRRPeriod"
 simulationProfiles = []
 
@@ -48,7 +48,8 @@ downloadData = downloadData[downloadDataProfile]
 
 energyKeys = {
     "demand":"au.nem.nsw1.demand.energy (GWh)",
-    "solar": "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"
+    "rooftop_solar": "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)",
+    "utility_solar": "au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)"
 }
 
 startTime = time.time()
@@ -183,14 +184,16 @@ for simulationName in simulationProfiles:
         energyData = {}
         for regressor in regressors:
             val = regressor.predict(dateVal)
+            if regressor.regressorType == "rooftop_solar" or regressor.regressorType == "utility_solar":
+                val = val * sceneConfig["solarCapacity"]
             energyData[energyKeys[regressor.regressorType]] = val[0][0]
 
         # Determine Wind Data
         windGen = 0
         for turbine in windTurbines:
-            windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle, sceneConfig["turbinesRotate"])
-        # Needed to convert kw to gw
-        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = windGen / 1000000
+            windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle, sceneConfig["turbinesYaw"])
+        # Needed to convert KW to GwH
+        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = (windGen / 1000000) * 24
 
         dateVal.energyData = energyData
 

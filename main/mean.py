@@ -4,13 +4,12 @@ from func.util import readGridDataFromFile, getDateList, getProfile
 import json
 from datetime import datetime
 import numpy as np
-import pandas as pd 
 
 # Determine average values for the downloaded .grid files
 
 # Load Profiles
-meanProfile = "myHouse"
-dateProfile = "grid"
+meanProfile = ""
+dateProfile = ""
 units = {"temperature": "Celcius", "irradiance": "MJ/m^2", "pressure": "hPa", "rainfall": "mm", "density": "count"}
 
 # Load the 2 config files
@@ -168,16 +167,21 @@ if doGrid:
                     capacityVals[line.split(",")[0].replace(" ", "")] = float(line.split(",")[1].replace(",",""))
 
         gridLabels.append("Normalized Rooftop Solar (GWh)")
+        gridLabels.append("Normalized Utility Solar (GWh)")
         gridDataArr["Normalized Rooftop Solar (GWh)"] = []
+        gridDataArr["Normalized Utility Solar (GWh)"] = []
 
         for dateIndex, date in enumerate(dateList):
-            solarData = gridDataArr['au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)'][dateIndex]
+            rooftopData = gridDataArr['au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)'][dateIndex]
+            utilityData = gridDataArr['au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)'][dateIndex]
             # Convert the total rooftop production into a normalized value by first converting GWh to KWh (multiplying by 10^6), and then dividing by total capacity
             try:
-                gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/capacityVals[date.strftime('%Y-%m')])
+                gridDataArr["Normalized Rooftop Solar (GWh)"].append((rooftopData*1000000)/capacityVals[date.strftime('%Y-%m')])
+                gridDataArr["Normalized Utility Solar (GWh)"].append((utilityData*1000000)/capacityVals[date.strftime('%Y-%m')])
             except KeyError: # If there is no normalization value for this period
                 lastCapacity = capacityVals[list(capacityVals.keys())[-1]]
-                gridDataArr["Normalized Rooftop Solar (GWh)"].append((solarData*1000000)/lastCapacity)
+                gridDataArr["Normalized Rooftop Solar (GWh)"].append((rooftopData*1000000)/lastCapacity)
+                gridDataArr["Normalized Utility Solar (GWh)"].append((utilityData*1000000)/lastCapacity)
 
 
 

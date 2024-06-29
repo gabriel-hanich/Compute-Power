@@ -52,20 +52,30 @@ class datePoint:
     
     def getDict(self):
         windPortion = 0
-        solarPortion = 0 
+        roofSolarPortion = 0 
+        utilitySolarPortion = 0 
+        totalSolarPortion = 0 
         renewablePortion = 0
         
         try:
              windPortion = float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
-        except ZeroDivisionError:
+        except Exception:
              pass
         try:
-             solarPortion = float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
-        except ZeroDivisionError:
+             roofSolarPortion = float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+        except Exception:
+             pass
+        try:
+             utilitySolarPortion = float(self.energyData["au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)"]) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+        except Exception:
+             pass
+        try:
+             totalSolarPortion = float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"] + float(self.energyData["au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+        except Exception:
              pass
         try:
              renewablePortion = (float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
-        except ZeroDivisionError:
+        except Exception:
              pass
      
 
@@ -80,7 +90,9 @@ class datePoint:
              "windspeed": self.windspeed,
              "windangle": self.windangle,
              "windPortion": windPortion,
-             "solarPortion": solarPortion,
+             "roofSolarPortion": roofSolarPortion,
+             "utilitySolarPortion": utilitySolarPortion,
+             "totalSolarPortion": totalSolarPortion,
              "renewablePortion": renewablePortion,
              "grid": self.energyData,
         }

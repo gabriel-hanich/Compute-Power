@@ -12,7 +12,15 @@
                 "doDataDump": true
             },
             {
-                "modelType": "solar",
+                "modelType": "rooftop_solar",
+                "kernel": "linear",
+                "cVal": 1,
+                "gammaVal": 0.1,
+                "testValCount": 400,
+                "doDataDump": true
+            },
+            {
+                "modelType": "utility_solar",
                 "kernel": "linear",
                 "cVal": 1,
                 "gammaVal": 0.1,

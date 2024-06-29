@@ -6,6 +6,7 @@ from datetime import datetime
 import json
 import matplotlib.pyplot as plt
 from func.valueMaps import ValueMap
+import numpy as np
 import time
 
 profileName = "SRRPeriod"
@@ -120,7 +121,7 @@ while True:
 
             if doXAxisEnergyData:
                 try:
-                    xVals.append(date.energyData[yAxis])
+                    xVals.append(date.energyData[xAxis])
                 except KeyError:
                     xVals.append(0)
             else:
@@ -194,6 +195,8 @@ while True:
                 y.append(instance[yAxis])
 
             c.append(instance[color])
+
+        print(f"Graphing {xAxis} against {yAxis}. Pearsons Value of {round(np.corrcoef(x, y)[0,1], 5)}")
 
         plt.scatter(x, y, c=c)
         plt.xlabel(xAxis)

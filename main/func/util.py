@@ -133,8 +133,10 @@ def getTrainingRow(datePoint, modelType):
     ]
     if modelType == "demand":
         row.append(datePoint.energyData["au.nem.nsw1.demand.energy (GWh)"])
-    elif modelType == "solar":
+    elif modelType == "rooftop_solar":
         row.append(datePoint.energyData["Normalized Rooftop Solar (GWh)"])
+    elif modelType == "utility_solar":
+        row.append(datePoint.energyData["Normalized Utility Solar (GWh)"])
     elif modelType == "wind":
         row.append(datePoint.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])
     return row
