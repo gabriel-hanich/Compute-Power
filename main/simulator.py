@@ -126,7 +126,7 @@ for simulationName in simulationProfiles:
                         )
                         dateVals.append(thisDateVal)
 
-        with open("./data/processed/wind/windData.csv") as windData:
+        with open(f"./data/processed/wind/{downloadDataProfile}.csv") as windData:
             for lineIndex, line in enumerate(windData.readlines()):
                 if lineIndex != 0:
                     lineVals = line.split(",")

@@ -166,3 +166,4 @@ test/data/density/density.grid
 *.png
 *.joblib
 main/data/processed/sim/variedEverything.json
+main/data/processed/sim/variedEverything.snapshots
