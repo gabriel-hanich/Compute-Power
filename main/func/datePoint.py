@@ -74,7 +74,7 @@ class datePoint:
         except Exception:
              pass
         try:
-             renewablePortion = (float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
+             renewablePortion = (float(self.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)"])+float(self.energyData["au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)"])) / float(self.energyData["au.nem.nsw1.demand.energy (GWh)"])
         except Exception:
              pass
      

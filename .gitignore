@@ -163,7 +163,6 @@ test/data/density/density.grid
 
 *.grid
 *.grib
-*.png
 *.joblib
 main/data/processed/sim/variedEverything.json
 main/data/processed/sim/variedEverything.snapshots

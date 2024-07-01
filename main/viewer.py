@@ -205,10 +205,10 @@ while True:
             cmap = input("cmap:") 
 
         plt.scatter(x, y, c=list(c), cmap=cmap)
-        plt.xlabel(xAxis)
-        plt.ylabel(yAxis)
+        plt.xlabel(input("X-Axis"))
+        plt.ylabel(input("Y-Axis"))
         cbar = plt.colorbar()
-
+        plt.ylim(0,0.5)
         cbar.set_label(color)
 
         doGraphImg = input("y/N Do You want to export a .png of the graph?\n")
