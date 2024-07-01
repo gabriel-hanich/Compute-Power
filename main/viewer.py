@@ -194,16 +194,34 @@ while True:
             else:
                 y.append(instance[yAxis])
 
-            c.append(instance[color])
+            c.append(float(instance[color]))
 
         print(f"Graphing {xAxis} against {yAxis}. Pearsons Value of {round(np.corrcoef(x, y)[0,1], 5)}")
 
-        plt.scatter(x, y, c=c)
+        # Color maps: https://matplotlib.org/stable/users/explain/colors/colormaps.html
+
+        cmap = ""
+        if cmap == "":
+            cmap = input("cmap:") 
+
+        plt.scatter(x, y, c=list(c), cmap=cmap)
         plt.xlabel(xAxis)
         plt.ylabel(yAxis)
-        plt.colorbar()
+        cbar = plt.colorbar()
+
+        cbar.set_label(color)
+
+        doGraphImg = input("y/N Do You want to export a .png of the graph?\n")
+        if doGraphImg.lower() == "y":
+            if not os.path.exists(f"../manualAnalysis/{simProfile.replace('.json', '')}/"):
+                os.makedirs(f"../manualAnalysis/{simProfile.replace('.json', '')}/")
+            fileName = input('File Title:')
+            plt.savefig(f"../manualAnalysis/{simProfile.replace('.json', '')}/{fileName}.png", dpi=800)
+            print(f"File Saved to ../manualAnalysis/{simProfile.replace('.json', '')}/{fileName}.png")
+
         plt.show()
         plt.clf()
+        
 
         doExport = input("y/N Do you want to export the data to a .csv file?\n")
         if doExport.lower() == "y":
@@ -226,6 +244,7 @@ while True:
 
             print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}.csv")
 
+        
     if mainInstruction == "Produce Map Animation":
         wipelevel = 3
         startDate = getDateInput(dateList[0].date, dateList[-1].date, f"What date should the starting frame have? ({dateList[0].getDateStr()}-{dateList[-1].getDateStr()})")
