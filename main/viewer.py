@@ -261,8 +261,17 @@ while True:
                         except KeyError:
                             vals.append(str(row["grid"][key.replace("-", ".")]))
                     outputFile.write("\n" + ",".join(vals))
-
             print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}.csv")
+            
+        if includeMeanLine:
+            if input("y/N Do you want to export the MEAN LINE to a .CSV File\n").lower() == "y":
+                with open(f"./data/processed/sim/{simProfile.replace('.json', '')}MEANLINE.csv", "w") as outputFile:
+                    outputFile.write(",".join([xAxis, yAxis]))
+                    for xVal in list(meanLineVals.keys()):
+                        outputFile.write("\n" + ",".join([str(xVal), str(sum(meanLineVals[xVal])/len(meanLineVals[xVal]))]))
+
+                print(f"Exported to ./data/processed/sim/{simProfile.replace('.json', '')}MEANLINE.csv")
+
 
         
     if mainInstruction == "Produce Map Animation":
