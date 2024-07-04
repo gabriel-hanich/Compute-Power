@@ -1,6 +1,6 @@
 import os
 from func.datePoint import datePoint
-from func.util import getIntInput, getProfile, getDateList, getDateInput, readGridDataFromFile
+from func.util import getIntInput, getProfile, getDateList, getDateInput, readGridDataFromFile, trapezoidalRule
 from func.dataLoader import loadData
 from datetime import datetime
 import json
@@ -35,6 +35,7 @@ wipelevel = 0
 
 # Niche settings 
 doYearColor = True # Change the color of the points according to their year
+includeMeanLine = True
 
 while True:
     options = ["View specific Date", "Graph Something", "View Simulation Data","Produce Map Animation", "Exit"]
@@ -183,6 +184,7 @@ while True:
         x = []
         y = []
         c = []
+        meanLineVals = {}
         for instance in simData:
             if xGrid:
                 x.append(instance["grid"][xAxis])
@@ -194,22 +196,40 @@ while True:
             else:
                 y.append(instance[yAxis])
 
+            # Collect data for mean line calcualtion
+            try:
+                meanLineVals[x[-1]].append(y[-1])
+            except KeyError:
+                meanLineVals[x[-1]] = [y[-1]]
+
             c.append(float(instance[color]))
 
-        print(f"Graphing {xAxis} against {yAxis}. Pearsons Value of {round(np.corrcoef(x, y)[0,1], 5)}")
+        print(f"Graphing {xAxis} against {yAxis}. \nPearsons Value of {round(np.corrcoef(x, y)[0,1], 5)}")
+
+
+        meanX = []
+        meanY = []
+        for keyIndex, key in enumerate(list(meanLineVals.keys())):
+            if keyIndex + 1 != len(list(meanLineVals.keys())):
+                meanX.append(key)
+                meanY.append(sum(meanLineVals[key])/len(meanLineVals[key]))
+        print(f"Area under the curve is {trapezoidalRule(meanX, meanY)}")
 
         # Color maps: https://matplotlib.org/stable/users/explain/colors/colormaps.html
-
         cmap = ""
         if cmap == "":
             cmap = input("cmap:") 
 
         plt.scatter(x, y, c=list(c), cmap=cmap)
-        plt.xlabel(input("X-Axis"))
-        plt.ylabel(input("Y-Axis"))
+        plt.xlabel(input("X-Axis:"))
+        plt.ylabel(input("Y-Axis:"))
         cbar = plt.colorbar()
         plt.ylim(0,0.5)
         cbar.set_label(color)
+
+
+        if includeMeanLine:
+            plt.plot(meanX, meanY, c="black")
 
         doGraphImg = input("y/N Do You want to export a .png of the graph?\n")
         if doGraphImg.lower() == "y":

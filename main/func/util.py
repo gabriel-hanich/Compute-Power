@@ -140,3 +140,12 @@ def getTrainingRow(datePoint, modelType):
     elif modelType == "wind":
         row.append(datePoint.energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"])
     return row
+
+def trapezoidalRule(x, y):
+    area = 0
+    for xIndex, xVal in enumerate(x):
+        if xIndex != len(x) - 1:
+            # 0.5 * h * (y1+y2)
+            area += 0.5 * abs(xVal - x[xIndex+1]) * (y[xIndex] + y[xIndex+1])
+        
+    return area
