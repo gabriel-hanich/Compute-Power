@@ -193,7 +193,8 @@ for simulationName in simulationProfiles:
         for turbine in windTurbines:
             windGen += turbine.predictOutput(dateVal.windspeed, dateVal.windangle, sceneConfig["turbinesYaw"])
         # Needed to convert KW to GwH
-        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = (windGen / 1000000) * 24
+        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = (windGen / (10**6)) 
+        energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] = energyData["au.nem.nsw1.fuel_tech.wind.energy (GWh)"] * 24
 
         dateVal.energyData = energyData
 

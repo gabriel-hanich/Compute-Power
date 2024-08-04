@@ -190,7 +190,6 @@ while True:
                 x.append(instance["grid"][xAxis])
             else:
                 x.append(instance[xAxis])
-
             if yGrid:
                 y.append(instance["grid"][yAxis])
             else:
@@ -216,15 +215,15 @@ while True:
         print(f"Area under the curve is {trapezoidalRule(meanX, meanY)}")
 
         # Color maps: https://matplotlib.org/stable/users/explain/colors/colormaps.html
-        cmap = ""
+        cmap = "gnuplot2"
         if cmap == "":
             cmap = input("cmap:") 
 
         plt.scatter(x, y, c=list(c), cmap=cmap)
-        plt.xlabel(input("X-Axis:"))
-        plt.ylabel(input("Y-Axis:"))
+        plt.xlabel(xAxis)
+        plt.ylabel(yAxis)
         cbar = plt.colorbar()
-        plt.ylim(0,0.5)
+        plt.ylim(0,50)
         cbar.set_label(color)
 
 

@@ -1,0 +1,24 @@
+[
+    {
+        "id": "0",
+        "date": "-1",
+        "dayoftheyear": 1,
+        "temperature": 22,
+        "irradiance": 16.478,
+        "pressure": 14.694,
+        "rainfall": 3.353,
+        "windspeed": 30,
+        "windangle": 0,
+        "windPortion": 0.11342869862891816,
+        "roofSolarPortion": 0.12242083173711121,
+        "utilitySolarPortion": 0.0882257990561918,
+        "totalSolarPortion": 0.210646630793303,
+        "renewablePortion": 0.32407532942222117,
+        "grid": {
+            "au.nem.nsw1.demand.energy (GWh)": 169.26933158964275,
+            "au.nem.nsw1.fuel_tech.solar_rooftop.energy (GWh)": 20.72209236078894,
+            "au.nem.nsw1.fuel_tech.solar_utility.energy (GWh)": 14.933922035203718,
+            "au.nem.nsw1.fuel_tech.wind.energy (GWh)": 19.200000000000003
+        }
+    }
+]

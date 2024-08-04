@@ -8,6 +8,7 @@ import os
 
 from joblib import dump
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import root_mean_squared_error
 from sklearn.svm import SVR
 
 
@@ -78,7 +79,10 @@ for model in trainingConfig["models"]:
     svr.fit(trainX, trainY.ravel())
     
     rSquared = svr.score(testX, testY) 
-    print(f"Model for {model['modelType']} achieved an R^2 value of {rSquared}")
+    # print(f"Model for {model['modelType']} achieved an R^2 value of {rSquared}")
+
+    rmse = root_mean_squared_error(testY, svr.predict(testX))
+    print(f"Model for {model['modelType']} achieved an RMSE value of {rmse}")
 
     print(f"Dumping SVR {model['modelType']} Model")
 

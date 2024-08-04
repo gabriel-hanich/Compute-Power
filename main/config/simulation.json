@@ -46,6 +46,25 @@
             "windangle": 0
         }
     },
+    "smolSim1": {
+        "scenarioName": "typical",
+        "solarCapacity": 34.234091,
+        "turbineName": "vestasV164",
+        "turbineCount": 100,
+        "meanTurbineDirection": 359,
+        "turbineDirectionRange": 0,
+        "turbinesYaw": true,
+        "useRealClimateVar": false,
+        "variables": {
+            "dayOfTheYear": 1,
+            "temperature": 22,
+            "irradiance": 16.478,
+            "pressure": 14.694,
+            "rainfall": 3.353,
+            "windspeed": 30,
+            "windangle": 0
+        }
+    },
     "variedEverything": {
         "scenarioName": "typical",
         "solarCapacity": 34.234091,

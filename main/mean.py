@@ -92,6 +92,7 @@ if meanData["isBounding"]: # If generating a population-weighted mean
             )
             climateData.setGridData(climateFileData["mapData"])
 
+            print(len(samplePoints))
             # Calculate mean 
             valueSum = 0
             for point in samplePoints:

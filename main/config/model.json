@@ -14,8 +14,8 @@
             {
                 "modelType": "rooftop_solar",
                 "kernel": "linear",
-                "cVal": 1,
-                "gammaVal": 0.1,
+                "cVal": 3,
+                "gammaVal": 0.2,
                 "testValCount": 400,
                 "doDataDump": true
             },

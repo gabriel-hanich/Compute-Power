@@ -2,7 +2,7 @@ import numpy as np
 import scipy.stats as stats
 
 rawData = [[] for _ in range(4)]
-dType = "WIND"
+dType = "SOLAR"
 with open(f"./data/Seasonal {dType}.csv", "r") as dataFile:
     for line in dataFile.readlines():
         for valIndex, val in enumerate(line.split(",")):
@@ -22,5 +22,5 @@ for aIndex, aItem in enumerate(seasons):
             group1 = dataArr[:, aIndex]
             group2 = dataArr[:, bIndex]
             
-            tVal = stats.ttest_rel(group1, group2)
+            tVal = stats.ttest_ind(group1, group2)
             print(f"For {aItem}-{bItem}: {tVal.pvalue}")
